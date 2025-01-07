@@ -1,0 +1,78 @@
+/* CSS Style for Templates */
+/* 
+You can modify this template for your theme following these selectors
+
+body: Modifies the background
+header-container: Modifies the look of the header, where the title and the settings button are placed
+main-container: Modifies and controls where the link grid and widget grid are placed
+
+You can modify the root variables to apply certain values globally, but you can also change them 
+individually as you please.
+
+*/
+:root {
+    --main-bg : '#FFFFF0';
+    --content-bg : rgba(1,1,1,0.5);
+    --border-radius : 0.3rem;
+    --border-width: 2px;
+    --border-color: black;
+    --btn-color: #ffffff;
+
+}
+
+body {
+    background: var(--main-bg);
+}
+
+.main-container {
+    margin: 0 auto;
+    max-width:1320px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.link-grid {
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    width:1000px;
+    max-width:1000px;
+    padding-left:3rem;
+}
+
+.link-card {
+    background-color: var(--content-bg);
+    border-style: solid;
+    border-radius:var(--border-radius);
+    border-width: var(--border-width);
+    border-color:var(--border-color);
+    width:253.2px;
+    height: 153.2px;
+    margin: 0px 25px 25px 25px;
+}
+
+.link-img {
+    border-radius: var(--border-radius);
+}
+
+.link-btn {
+    width:30px;
+    height:30px;
+    margin:0.3rem;
+    border-radius:3rem;
+    background-color: var(--btn-color);
+    box-shadow:1px 1px 2px rgba(1,1,1,0.3);
+    border: none;
+    text-align:center;
+    display: inline-block;
+    position:absolute;
+}
+
+.widget-grid {
+    background-color: var(--content-bg);
+    width:320px;
+    border-style: solid;
+    border-radius:var(--border-radius);
+    border-width: var(--border-width);
+    border-color:var(--border-color);
+}
