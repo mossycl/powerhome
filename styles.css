@@ -17,7 +17,9 @@ individually as you please.
     --border-width: 2px;
     --border-color: black;
     --btn-color: #ffffff;
-
+    --hue-value: 0;
+    --light-value: 50%;
+    --saturation-value: 100%;
 }
 
 body {
@@ -76,3 +78,52 @@ body {
     border-width: var(--border-width);
     border-color:var(--border-color);
 }
+
+/* Color Picker Variables */
+.color-area {
+    width:300px; 
+    height:300px;
+    background: linear-gradient(to bottom, transparent , #000), linear-gradient(to left,hsla(0,0%,100%,0),#fff), hsl(var(--hue-value),var(--saturation-value),var(--light-value)); 
+    position:relative;
+}
+
+.color-picker {
+    left: 0px; 
+    top: 0px; 
+    width:1.2rem; 
+    height:1.2rem; 
+    margin-left: -9px; 
+    margin-top: -9px;
+    border: 0.3rem solid #fff;  
+    display:block; 
+    box-shadow:1px 1px 2px rgba(1,1,1,0.3); 
+    position:absolute; 
+    cursor:pointer;
+}
+
+input[type="range"]{
+    margin-top:1rem;
+    padding:0;
+    background: transparent;
+    width:300px;
+}
+
+input[type=range]::-moz-range-thumb {
+    /*box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;*/
+    /*border: 1px solid #000000;*/
+    height: 30px;
+    width: 16px;
+    border-radius: 3px;
+    background: #fff;
+    cursor: pointer;
+}
+
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 25px;
+    cursor: pointer;
+    /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
+    background: linear-gradient(to right, hsl(0, 100%, 50%), hsl(60, 100%, 50%),hsl(120, 100%, 50%),hsl(180, 100%, 50%),hsl(240, 100%, 50%),hsl(300, 100%, 50%),hsl(360, 100%, 50%));
+    border-radius: 1.3px;
+    border: 0.2px solid #fff;
+  }

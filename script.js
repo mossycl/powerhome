@@ -82,24 +82,93 @@ settingsBtn.addEventListener("click", () => {
         const col2Title = document.createElement('h5');
         col2Title.classList.add('text-light');
         col2Title.textContent = "Background Color"
+
+        //
         const colorRow = document.createElement('div');
         colorRow.classList.add('row');
         colorRow.classList.add('m-0')
-        for (let i = 0;i<Object.keys(colorList).length;i++){
-            const colorBlock = document.createElement('button');
-            colorBlock.setAttribute('value',i);
-            colorBlock.classList.add('col-2');
-            colorBlock.classList.add('p-1');
-            colorBlock.classList.add('me-1');
-            colorBlock.classList.add('border');
-            colorBlock.style.cssText += "width:40px; height:40px;";
-            colorBlock.style.cssText += "background-color: "+ Object.values(colorList)[i]+";";
-            colorRow.appendChild(colorBlock);
-            colorBlock.addEventListener('click', ()=>{
-                let idx = i;
-                selectColor(idx);
-            })
-        }
+        const colorArea = document.createElement('div');
+        colorArea.classList.add('border');
+        colorArea.classList.add('p-0');
+        colorArea.classList.add('color-area');
+        const picker = document.createElement('div');
+        picker.setAttribute('id','colorPicker');
+        picker.classList.add('bg-primary');
+        picker.classList.add('rounded-circle');
+        picker.classList.add('color-picker');
+        colorArea.appendChild(picker);
+        
+        let pickerX = 0;
+        let pickerY = 0;
+        let isMouseDown = false;
+        // Mouse picker movement
+        picker.addEventListener('mousedown', (e)=> {
+            isMouseDown = true;
+            pickerX = picker.offsetLeft - e.clientX;
+            pickerY = picker.offsetTop - e.clientY;
+            e.preventDefault();
+        }, true)
+
+        document.addEventListener('mouseup', ()=> {
+            isMouseDown = false;
+        }, true)
+
+        document.addEventListener('mousemove', (e)=> {
+            if (isMouseDown){
+                let x = e.clientX + pickerX;
+                let y = e.clientY + pickerY;
+
+                const maxX = (colorArea.clientWidth + 11) - (picker.offsetWidth - 10);
+                const maxY = (colorArea.clientHeight + 11) - (picker.offsetHeight - 10);
+
+                x = Math.max(0,Math.min(x,maxX));
+                y = Math.max(0,Math.min(y,maxY));
+
+                picker.style.left = x + 'px';
+                picker.style.top = y + 'px';
+            }
+        }, true)
+        colorArea.addEventListener('click', (e) => {
+            let rect = e.target.getBoundingClientRect();
+            let x = (e.clientX - rect.left);
+            let y = (e.clientY - rect.top);
+
+            picker.style.left = x + 'px';
+            picker.style.top = y + 'px';
+        })
+
+        const colorRange = document.createElement('input');
+        colorRange.setAttribute('type','range');
+        colorRange.setAttribute('id','hue');
+        colorRange.setAttribute('min','0');
+        colorRange.setAttribute('max','360');
+        colorRange.setAttribute('value','0');
+        colorRange.classList.add('color-range');
+        let hue = 0;
+        colorRange.addEventListener('change', (e)=> {
+            hue = e.target.value;
+            bgBody.style.setProperty('--hue-value',hue);
+        })
+        
+        // for (let i = 0;i<Object.keys(colorList).length;i++){
+        //     const colorBlock = document.createElement('button');
+        //     colorBlock.setAttribute('value',i);
+        //     colorBlock.classList.add('col-2');
+        //     colorBlock.classList.add('p-1');
+        //     colorBlock.classList.add('me-1');
+        //     colorBlock.classList.add('border');
+        //     colorBlock.style.cssText += "width:40px; height:40px;";
+        //     colorBlock.style.cssText += "background-color: "+ Object.values(colorList)[i]+";";
+        //     colorRow.appendChild(colorBlock);
+        //     colorBlock.addEventListener('click', ()=>{
+        //         let idx = i;
+        //         selectColor(idx);
+        //     })
+        // }
+        colorRow.appendChild(colorArea);
+        colorRow.appendChild(colorRange);
+        //
+        
         col2.appendChild(col2Title);
         col2.appendChild(colorRow);
 
@@ -188,6 +257,20 @@ const editLink = (id) => {
     // Esta función lee una lista pareada con el id del card y el link al que redirige
     // 
 }
+
+// Mouse Movement
+const drag = (element)=> {
+    let mousePos = {
+        x : 0,
+        y : 0
+    }
+    let isMousedClicked = false;
+    element.addEventListener('mousemove', (event) => {
+        mousePos.x = event.clientX;
+        mousePos.y = event.clientY;
+    })
+}
+
 
 //Load Settings
 
