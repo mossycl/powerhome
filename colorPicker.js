@@ -1,9 +1,12 @@
 const changeColor = (hue, sat, light) => {
     let bgBody = document.documentElement.style;
     bgBody.setProperty(`--main-bg`,`hsl(${hue},${sat}%,${light}%)`);
+    bgBody.setProperty('--hue-value',`${hue}`);
+    bgBody.setProperty('--saturation-value',`${sat}%`);
+    bgBody.setProperty('--light-value',`${light}%`);
 }
 
-const createColorPicker = () => {
+export const createColorPicker = () => {
     // row (debe ser dado como retorno);
     const colorRow = document.createElement('div');
     colorRow.classList.add('row');
@@ -81,8 +84,10 @@ const createColorPicker = () => {
     
             picker.style.left = x + 'px';
             picker.style.top = y + 'px';
-            sat = x;
-            light = y
+            sat = ((x / 300)*100)
+            light = (50 + (100 - sat)/2) - y/300 * 100
+            //light = (100-((y /300) * 100))/2
+            
 
             changeColor(hue, sat, light);
         }
@@ -96,8 +101,9 @@ const createColorPicker = () => {
         picker.style.left = x + 'px';
         picker.style.top = y + 'px';
 
-        sat = x
-        light = y
+        sat = ((x / 300)*100);
+        light = (50 + (100 - sat)/2) - y/300 * 100
+        //light = (100-((y /300) * 100))/2
         changeColor(hue,sat,light);
     })
 
